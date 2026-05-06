@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotia (USA) Ltd — Vendor Weekly Selling 24/25</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#378ADD;--blue-p:#E6F1FB;
+  --green:#3B6D11;--green-l:#639922;--green-p:#EAF3DE;
+  --amber:#854F0B;--amber-l:#BA7517;--amber-p:#FAEEDA;
+  --red:#A32D2D;--red-l:#E24B4A;--red-p:#FCEBEB;
+  --coral:#993C1D;--coral-p:#FAECE7;
+  --gray:#5F5E5A;--gray-l:#888780;
+  --text:#1a1a1a;--muted:#5F5E5A;--border:#e0ddd8;--bg:#f5f4f0;--surface:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;min-height:68px;flex-wrap:wrap;gap:12px;}
+.logo-wrap{display:flex;align-items:center;gap:14px;}
+.logo-img{height:50px;width:auto;flex-shrink:0;}
+.logo-text{display:flex;flex-direction:column;}
+.logo-name{font-size:17px;font-weight:700;letter-spacing:0.1em;color:#0C447C;text-transform:uppercase;}
+.logo-sub{font-size:10px;letter-spacing:0.06em;color:var(--muted);text-transform:uppercase;}
+.h-sep{width:1px;height:36px;background:var(--border);}
+.h-info{font-size:12px;color:var(--muted);text-align:right;line-height:1.7;}
+.h-info strong{color:var(--text);font-weight:600;display:block;}
+.main{max-width:1400px;margin:0 auto;padding:20px 16px;}
+.filter-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 16px;margin-bottom:16px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-right:2px;}
+.chip{border:1px solid var(--border);background:transparent;border-radius:20px;padding:4px 13px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .15s;}
+.chip:hover{border-color:var(--blue-l);color:var(--blue);}
+.chip.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:500;}
+.fsep{width:1px;height:20px;background:var(--border);margin:0 4px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:11px;margin-bottom:16px;}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;border-left:3px solid;}
+.kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:600;margin-bottom:5px;}
+.kpi-val{font-size:24px;font-weight:700;line-height:1;margin-bottom:3px;}
+.kpi-sub{font-size:11px;color:var(--muted);}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 16px 12px;}
+.chart-card.full{grid-column:1/-1;}
+.ct{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.cs{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.leg{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.lsq{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.perf-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;overflow-x:auto;}
+.perf-table{width:100%;border-collapse:collapse;min-width:700px;}
+.perf-table thead th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border);padding:7px 10px;text-align:left;white-space:nowrap;}
+.perf-table thead th.num{text-align:right;}
+.perf-table tbody tr{border-bottom:1px solid #f0eee9;transition:background .1s;}
+.perf-table tbody tr:hover{background:var(--blue-p);}
+.perf-table tbody tr:last-child{border-bottom:none;}
+.perf-table td{padding:8px 10px;vertical-align:middle;}
+.perf-table td.num{text-align:right;font-size:12px;}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:700;}
+.rk1{background:#FAEEDA;color:#633806;}.rk2{background:#E6F1FB;color:#0C447C;}.rk3{background:#EAF3DE;color:#27500A;}.rkn{background:#F1EFE8;color:#5F5E5A;}
+.sc-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;overflow-x:auto;}
+.sc-table{width:100%;border-collapse:collapse;min-width:940px;}
+.sc-table thead th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border);padding:7px 10px;text-align:left;white-space:nowrap;}
+.sc-table thead th.r{text-align:right;}
+.sc-table tbody tr{border-bottom:1px solid #f0eee9;transition:background .1s;}
+.sc-table tbody tr:hover{background:var(--blue-p);}
+.sc-table tbody tr:last-child{border-bottom:none;}
+.sc-table td{padding:7px 10px;vertical-align:middle;}
+.bar-bg{background:#ede9e3;border-radius:3px;height:6px;width:68px;overflow:hidden;display:inline-block;vertical-align:middle;}
+.bar-fill{height:6px;border-radius:3px;}
+.pill{font-size:10px;padding:2px 9px;border-radius:10px;font-weight:600;white-space:nowrap;}
+.pg{background:var(--green-p);color:var(--green);}.pa{background:var(--amber-p);color:var(--amber);}.pr{background:var(--red-p);color:var(--red);}.pmd{background:#FBEAF0;color:#72243E;}
+.btag{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:600;white-space:nowrap;}
+.bH{background:var(--blue-p);color:var(--blue);}.bC{background:var(--coral-p);color:var(--coral);}.bX{background:var(--green-p);color:var(--green);}
+.alerts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin-bottom:16px;}
+.ac{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;border-left:3px solid;}
+.ac-h{font-size:12px;font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+.ac-b{font-size:11px;color:var(--muted);line-height:1.5;}
+.ac-list{margin-top:7px;display:flex;flex-wrap:wrap;gap:4px;}
+.stt{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.sss{font-size:11px;color:var(--muted);margin-bottom:14px;}
+footer{text-align:center;padding:18px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;border-top:1px solid var(--border);background:var(--surface);margin-top:8px;}
+@media(max-width:768px){
+  header{padding:12px 14px;}
+  .logo-img{height:38px;}
+  .logo-name{font-size:13px;}
+  .charts-grid{grid-template-columns:1fr;}
+  .chart-card.full{grid-column:1;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .kpi-val{font-size:20px;}
+  .main{padding:12px 10px;}
+}
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .kpi{padding:10px 11px;}
+  .kpi-val{font-size:17px;}
+  .h-info{display:none;}
+}
+</style>
+<link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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">
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <img class="logo-img" src="data:image/png;base64,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" alt="Cotia Logo">
+    <div class="logo-text">
+      <span class="logo-name">Cotia (USA) Ltd.</span>
+      <span class="logo-sub">Vendor Weekly Selling Report</span>
+    </div>
+    <div class="h-sep"></div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--text);display:block;">Anthropologie (NA)</strong>
+      Season 24/25 &middot; Week 024
+    </div>
+  </div>
+  <div class="h-info">
+    <strong>3 marcas &middot; 28 produtos</strong>
+    Atualizado: Semana 24/25
+  </div>
+</header>
+
+<div class="main">
+
+<div class="filter-bar">
+  <span class="fl">Marca</span>
+  <button class="chip active" data-filter="marca" data-value="all">Todas</button>
+  <button class="chip" data-filter="marca" data-value="HAIGHT">HAIGHT</button>
+  <button class="chip" data-filter="marca" data-value="CALA DE LA CRUZ">CALA DE LA CRUZ</button>
+  <button class="chip" data-filter="marca" data-value="CALA X ANTHRO">CALA X ANTHRO</button>
+  <div class="fsep"></div>
+  <span class="fl">Status</span>
+  <button class="chip active" data-filter="status" data-value="all">Todos</button>
+  <button class="chip" data-filter="status" data-value="saudavel">Saudável</button>
+  <button class="chip" data-filter="status" data-value="atencao">Atenção</button>
+  <button class="chip" data-filter="status" data-value="critico">Crítico</button>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi" style="border-color:var(--blue);"><div class="kpi-lbl">Vendas LTD</div><div class="kpi-val" id="kv-v" style="color:var(--blue);">$438.3k</div><div class="kpi-sub" id="ks-v">28 produtos</div></div>
+  <div class="kpi" style="border-color:var(--gray-l);"><div class="kpi-lbl">Demanda LTD</div><div class="kpi-val" id="kv-d" style="color:var(--gray);">$1.148M</div><div class="kpi-sub">Acumulado temporada</div></div>
+  <div class="kpi" style="border-color:var(--red-l);"><div class="kpi-lbl">Demand Gap</div><div class="kpi-val" id="kv-g" style="color:var(--red);">$709.6k</div><div class="kpi-sub">Receita não capturada</div></div>
+  <div class="kpi" style="border-color:var(--amber-l);"><div class="kpi-lbl">ST Médio LTD</div><div class="kpi-val" id="kv-st" style="color:var(--amber);">37.7%</div><div class="kpi-sub">Meta: 60%</div></div>
+  <div class="kpi" style="border-color:var(--red-l);"><div class="kpi-lbl">Críticos</div><div class="kpi-val" id="kv-cr" style="color:var(--red);">12</div><div class="kpi-sub">ST abaixo de 25%</div></div>
+  <div class="kpi" style="border-color:var(--amber-l);"><div class="kpi-lbl">Markdown</div><div class="kpi-val" id="kv-md" style="color:var(--amber);">5</div><div class="kpi-sub">ST&lt;25% e WOS&gt;8</div></div>
+  <div class="kpi" style="border-color:var(--gray-l);"><div class="kpi-lbl">OH Total $k</div><div class="kpi-val" id="kv-oh" style="color:var(--gray);">$569.4k</div><div class="kpi-sub">Estoque disponível</div></div>
+  <div class="kpi" style="border-color:var(--green-l);"><div class="kpi-lbl">Saudáveis</div><div class="kpi-val" id="kv-sa" style="color:var(--green);">6</div><div class="kpi-sub">ST acima de 60%</div></div>
+</div>
+
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="ct">Sell Thru por marca</div><div class="cs">% giro LTD acumulado</div>
+    <div class="leg">
+      <span class="li"><span class="lsq" style="background:#378ADD"></span>HAIGHT</span>
+      <span class="li"><span class="lsq" style="background:#D85A30"></span>CALA DE LA CRUZ</span>
+      <span class="li"><span class="lsq" style="background:#639922"></span>CALA X ANTHRO</span>
+    </div>
+    <div style="position:relative;height:200px;"><canvas id="c-donut" role="img" aria-label="ST por marca">ST por marca</canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="ct">Vendas LTD vs Demanda LTD</div><div class="cs">Gap de receita por marca ($k)</div>
+    <div class="leg">
+      <span class="li"><span class="lsq" style="background:#185FA5"></span>Vendas</span>
+      <span class="li"><span class="lsq" style="background:#B5D4F4"></span>Demanda</span>
+    </div>
+    <div style="position:relative;height:200px;"><canvas id="c-gap" role="img" aria-label="Vendas vs demanda">Vendas vs demanda</canvas></div>
+  </div>
+  <div class="chart-card full">
+    <div class="ct">Sell Thru por SKU — todos os produtos</div><div class="cs">Ordenado por ST decrescente &middot; linha tracejada = meta 60%</div>
+    <div class="leg">
+      <span class="li"><span class="lsq" style="background:#378ADD"></span>HAIGHT</span>
+      <span class="li"><span class="lsq" style="background:#D85A30"></span>CALA DE LA CRUZ</span>
+      <span class="li"><span class="lsq" style="background:#639922"></span>CALA X ANTHRO</span>
+      <span class="li"><span class="lsq" style="background:#E24B4A;height:3px;border-radius:0;margin-top:3px;"></span>Meta 60%</span>
+    </div>
+    <div style="position:relative;height:250px;"><canvas id="c-sku" role="img" aria-label="ST por SKU">ST por SKU</canvas></div>
+  </div>
+</div>
+
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="ct">Demand Gap — Top 10 produtos</div><div class="cs">Receita potencial não capturada ($k)</div>
+    <div style="position:relative;height:290px;"><canvas id="c-demgap" role="img" aria-label="Demand gap top 10">Gap</canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="ct">Distribuição de status por marca</div><div class="cs">Saudável / Atenção / Crítico — empilhado</div>
+    <div class="leg">
+      <span class="li"><span class="lsq" style="background:#639922"></span>Saudável</span>
+      <span class="li"><span class="lsq" style="background:#BA7517"></span>Atenção</span>
+      <span class="li"><span class="lsq" style="background:#E24B4A"></span>Crítico</span>
+    </div>
+    <div style="position:relative;height:250px;"><canvas id="c-status" role="img" aria-label="Status por marca">Status</canvas></div>
+  </div>
+</div>
+
+<!-- COMPARAÇÃO DE PERFORMANCE -->
+<div class="perf-wrap">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+    <div><div class="stt">Comparação de performance por estilo / marca</div><div class="sss">Ranking dinâmico — clique no critério para reordenar</div></div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;">
+      <button class="chip active" data-sort="st" style="font-size:11px;padding:3px 10px;">ST%</button>
+      <button class="chip" data-sort="vendas" style="font-size:11px;padding:3px 10px;">Vendas</button>
+      <button class="chip" data-sort="demand_gap" style="font-size:11px;padding:3px 10px;">Gap $k</button>
+      <button class="chip" data-sort="ret" style="font-size:11px;padding:3px 10px;">Return%</button>
+      <button class="chip" data-sort="oh" style="font-size:11px;padding:3px 10px;">OH $k</button>
+    </div>
+  </div>
+  <table class="perf-table">
+    <thead>
+      <tr>
+        <th style="width:34px;">#</th>
+        <th>Produto / Estilo</th>
+        <th>Marca</th>
+        <th class="num">ST LTD%</th>
+        <th class="num">ST Líq%</th>
+        <th class="num">Vendas $k</th>
+        <th class="num">Demanda $k</th>
+        <th class="num">Gap $k</th>
+        <th class="num">Return%</th>
+        <th class="num">WOS</th>
+        <th class="num">OH $k</th>
+        <th>Giro</th>
+      </tr>
+    </thead>
+    <tbody id="perf-body"></tbody>
+  </table>
+</div>
+
+<!-- ALERTAS -->
+<div class="alerts-grid" id="alerts-grid"></div>
+
+<!-- SCORECARD COMPLETO -->
+<div class="sc-wrap">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+    <div><div class="stt">Scorecard completo por produto</div><div class="sss">ST, ST Líquido, Vendas, Demand Gap, Dem. Units, Estoque OH (un. + $k), WOS, Return% e Receita%</div></div>
+    <span id="sc-count" style="font-size:12px;color:var(--muted);"></span>
+  </div>
+  <table class="sc-table">
+    <thead>
+      <tr>
+        <th style="width:26px;">#</th>
+        <th>Produto</th>
+        <th>Marca</th>
+        <th style="width:96px;">ST LTD</th>
+        <th class="r">ST Líq%</th>
+        <th class="r">Vendas $k</th>
+        <th class="r">Gap $k</th>
+        <th class="r">Dem. Units</th>
+        <th class="r">OH (un.)</th>
+        <th class="r">OH $k</th>
+        <th class="r">WOS</th>
+        <th class="r">Return%</th>
+        <th class="r">% Rec.</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="sc-body"></tbody>
+  </table>
+</div>
+
+</div>
+<footer>Cotia (USA) Ltd. &middot; Anthropologie Vendor Weekly Selling Report &middot; Season 24/25</footer>
+
+<script>
+const RAW = [{"produto":"HAIGHT OS CREPE LUISA OP","marca":"HAIGHT","st":85.8,"st_net":31.9,"vendas":133.2,"demanda":366.3,"demand_gap":233.1,"wos":83,"ret":62.9,"oh":20.4,"pct_total":30.4,"back":0,"du":14,"doh":79,"status":"saudavel","markdown":false},{"produto":"HAIGHT CREPE V OP","marca":"HAIGHT","st":45.8,"st_net":16.1,"vendas":57.2,"demanda":161.3,"demand_gap":104.1,"wos":94.3,"ret":65,"oh":70.1,"pct_total":13.1,"back":0,"du":7,"doh":265,"status":"atencao","markdown":false},{"produto":"HAIGHT CREPE LUISA ONE PI","marca":"HAIGHT","st":57.2,"st_net":18.1,"vendas":28.7,"demanda":93.2,"demand_gap":64.5,"wos":-43,"ret":68.4,"oh":21.2,"pct_total":6.5,"back":0,"du":7,"doh":84,"status":"atencao","markdown":false},{"produto":"CREPE MARIA SWIMSUIT","marca":"HAIGHT","st":86.4,"st_net":24,"vendas":29.8,"demanda":111.1,"demand_gap":81.3,"wos":4.3,"ret":72.3,"oh":4.2,"pct_total":6.8,"back":0,"du":11,"doh":19,"status":"saudavel","markdown":false},{"produto":"HAIGHT RENATA ONE PIECE C","marca":"HAIGHT","st":59.8,"st_net":16.3,"vendas":16.9,"demanda":66.3,"demand_gap":49.4,"wos":0,"ret":72.8,"oh":10.4,"pct_total":3.8,"back":0,"du":10,"doh":39,"status":"atencao","markdown":false},{"produto":"HAIGHT CREPE BARBARA ONE","marca":"HAIGHT","st":13.6,"st_net":4.8,"vendas":3.4,"demanda":10.1,"demand_gap":6.7,"wos":0,"ret":65,"oh":23.5,"pct_total":0.8,"back":0,"du":0,"doh":88,"status":"critico","markdown":false},{"produto":"CALA DE LA CRUZ VENETA DR","marca":"CALA DE LA CRUZ","st":54.2,"st_net":18.1,"vendas":6,"demanda":18.1,"demand_gap":12.1,"wos":0,"ret":66.7,"oh":4.5,"pct_total":1.4,"back":0,"du":3,"doh":9,"status":"atencao","markdown":false},{"produto":"CALA DE LA CRUZ PALOMA DR","marca":"CALA DE LA CRUZ","st":20.2,"st_net":8.4,"vendas":11.7,"demanda":27,"demand_gap":15.3,"wos":-79,"ret":58.3,"oh":47,"pct_total":2.7,"back":0,"du":1,"doh":79,"status":"critico","markdown":false},{"produto":"CALA DE LA CRUZ AUDREY ON","marca":"CALA DE LA CRUZ","st":48.6,"st_net":13.9,"vendas":5,"demanda":18.2,"demand_gap":13.2,"wos":-17,"ret":71.4,"oh":5,"pct_total":1.2,"back":0,"du":3,"doh":15,"status":"atencao","markdown":false},{"produto":"CALA X ANTHRO GAIA DRESS","marca":"CALA X ANTHRO","st":30.4,"st_net":11.7,"vendas":18.5,"demanda":44.4,"demand_gap":25.9,"wos":43,"ret":61.6,"oh":42.6,"pct_total":4.2,"back":0,"du":2,"doh":36,"status":"atencao","markdown":false},{"produto":"CALA X ANTHRO MAPLE TOP","marca":"CALA X ANTHRO","st":62.8,"st_net":28.5,"vendas":14.6,"demanda":29.9,"demand_gap":15.3,"wos":-17,"ret":54.6,"oh":8.2,"pct_total":3.3,"back":0,"du":2,"doh":18,"status":"saudavel","markdown":false},{"produto":"CALA X ANTHRO ELISA HW BO","marca":"CALA X ANTHRO","st":61.8,"st_net":28.2,"vendas":12.6,"demanda":26.4,"demand_gap":13.8,"wos":-25,"ret":54.4,"oh":7.3,"pct_total":2.9,"back":0,"du":2,"doh":16,"status":"saudavel","markdown":false},{"produto":"CALA X ANTHRO LORE OP","marca":"CALA X ANTHRO","st":70.9,"st_net":33.5,"vendas":40.2,"demanda":77.1,"demand_gap":36.9,"wos":0,"ret":52.7,"oh":14.2,"pct_total":9.2,"back":0,"du":8,"doh":22,"status":"saudavel","markdown":false},{"produto":"CALA X ANTHRO LORENZA TOP","marca":"CALA X ANTHRO","st":29.5,"st_net":15.2,"vendas":8.7,"demanda":14.4,"demand_gap":5.7,"wos":41,"ret":48.6,"oh":20.5,"pct_total":2,"back":0,"du":2,"doh":47,"status":"atencao","markdown":false},{"produto":"CALA DE LA CRUZ ORLY DRES","marca":"CALA DE LA CRUZ","st":4,"st_net":4,"vendas":1.1,"demanda":1.6,"demand_gap":0.5,"wos":0,"ret":0,"oh":25.2,"pct_total":0.2,"back":0,"du":0,"doh":48,"status":"critico","markdown":false},{"produto":"CALA DE LA CRUZ MAPLE BIK","marca":"CALA DE LA CRUZ","st":20,"st_net":10.3,"vendas":2.2,"demanda":4.2,"demand_gap":2,"wos":-60,"ret":48.3,"oh":9,"pct_total":0.5,"back":0,"du":1,"doh":59,"status":"critico","markdown":false},{"produto":"CALA DE LA CRUZ LULU BIKI","marca":"CALA DE LA CRUZ","st":22.7,"st_net":13.3,"vendas":2.4,"demanda":4,"demand_gap":1.6,"wos":58,"ret":41.4,"oh":8.4,"pct_total":0.5,"back":0,"du":3,"doh":57,"status":"critico","markdown":true},{"produto":"CALA DE LA CRUZ ARIELLA T","marca":"CALA DE LA CRUZ","st":51.2,"st_net":31.6,"vendas":5.9,"demanda":9,"demand_gap":3.1,"wos":-20,"ret":38.2,"oh":5.9,"pct_total":1.3,"back":0,"du":2,"doh":19,"status":"atencao","markdown":false},{"produto":"CALA DE LA CRUZ BRUNA SKI","marca":"CALA DE LA CRUZ","st":77.5,"st_net":50.1,"vendas":13.2,"demanda":19.7,"demand_gap":6.5,"wos":-5,"ret":35.4,"oh":2.2,"pct_total":3,"back":0,"du":2,"doh":3,"status":"saudavel","markdown":false},{"produto":"CALA DE LA CRUZ SAMANTHA","marca":"CALA DE LA CRUZ","st":53.3,"st_net":30.5,"vendas":7.4,"demanda":14,"demand_gap":6.6,"wos":6.5,"ret":42.9,"oh":6.4,"pct_total":1.7,"back":0,"du":2,"doh":13,"status":"atencao","markdown":false},{"produto":"CALA DE LA CRUZ CALABRIA","marca":"CALA DE LA CRUZ","st":2,"st_net":2,"vendas":0.7,"demanda":1.3,"demand_gap":0.6,"wos":48,"ret":0,"oh":31.2,"pct_total":0.1,"back":0,"du":2,"doh":48,"status":"critico","markdown":true},{"produto":"CALA DE LA CRUZ LEON BIKI","marca":"CALA DE LA CRUZ","st":7.6,"st_net":6.6,"vendas":1.9,"demanda":2.2,"demand_gap":0.3,"wos":31.2,"ret":13.3,"oh":23.4,"pct_total":0.4,"back":0,"du":5,"doh":37,"status":"critico","markdown":true},{"produto":"CALA DE LA CRUZ LULU BIKI (0000209)","marca":"CALA DE LA CRUZ","st":8.2,"st_net":7.2,"vendas":2,"demanda":2.2,"demand_gap":0.2,"wos":25.7,"ret":12.5,"oh":22.3,"pct_total":0.5,"back":0,"du":6,"doh":36,"status":"critico","markdown":true},{"produto":"CALA DE LA CRUZ TEBA ONE","marca":"CALA DE LA CRUZ","st":2.7,"st_net":2.7,"vendas":2.4,"demanda":1.7,"demand_gap":-0.7,"wos":46.8,"ret":0,"oh":82.9,"pct_total":0.5,"back":0,"du":5,"doh":36,"status":"critico","markdown":true},{"produto":"HAIGHT CREPE V SWIMSUIT","marca":"HAIGHT","st":0,"st_net":0,"vendas":0,"demanda":0,"demand_gap":0,"wos":0,"ret":0,"oh":18.6,"pct_total":0,"back":1,"du":0,"doh":75,"status":"critico","markdown":false},{"produto":"HAIGHT LUISA OP","marca":"HAIGHT","st":37.5,"st_net":26,"vendas":4.4,"demanda":7.2,"demand_gap":2.8,"wos":2.9,"ret":30.8,"oh":7.2,"pct_total":1,"back":0,"du":10,"doh":29,"status":"atencao","markdown":false},{"produto":"CALA X ANTHRO GAIA DRESS (PET)","marca":"CALA X ANTHRO","st":19.1,"st_net":11.5,"vendas":3.6,"demanda":6,"demand_gap":2.4,"wos":7.2,"ret":40,"oh":15.3,"pct_total":0.8,"back":0,"du":4,"doh":38,"status":"critico","markdown":false},{"produto":"CALA X ANTHRO LUCCA DRESS (PET)","marca":"CALA X ANTHRO","st":22.6,"st_net":10.1,"vendas":4.6,"demanda":11,"demand_gap":6.4,"wos":-32,"ret":55.6,"oh":12.3,"pct_total":1.1,"back":0,"du":9,"doh":32,"status":"critico","markdown":false}];
+const filters = {marca:'all',status:'all'};
+let perfSortKey = 'st';
+let charts = {};
+
+function applyFilters(data){
+  return data.filter(p => {
+    if(filters.marca !== 'all' && p.marca !== filters.marca) return false;
+    if(filters.status !== 'all' && p.status !== filters.status) return false;
+    return true;
+  });
+}
+function destroyChart(id){ if(charts[id]){ charts[id].destroy(); delete charts[id]; } }
+function bColor(m){ return m==='HAIGHT'?'#378ADD':m==='CALA DE LA CRUZ'?'#D85A30':'#639922'; }
+function bLabel(m){ return m==='HAIGHT'?'HGT':m==='CALA DE LA CRUZ'?'CDC':'CxA'; }
+function bCls(m){ return m==='HAIGHT'?'bH':m==='CALA DE LA CRUZ'?'bC':'bX'; }
+function abbr(s){ return s.replace('CALA DE LA CRUZ ','CDC ').replace('CALA X ANTHRO ','CxA ').replace('HAIGHT ','HGT '); }
+
+function updateKPIs(data){
+  const tv=data.reduce((s,p)=>s+p.vendas,0);
+  const td=data.reduce((s,p)=>s+p.demanda,0);
+  const tg=data.reduce((s,p)=>s+p.demand_gap,0);
+  const avgSt=data.length?data.reduce((s,p)=>s+p.st,0)/data.length:0;
+  document.getElementById('kv-v').textContent='$'+tv.toFixed(1)+'k';
+  document.getElementById('ks-v').textContent=data.length+' produto'+(data.length!==1?'s':'');
+  document.getElementById('kv-d').textContent=td>=1000?'$'+(td/1000).toFixed(2)+'M':'$'+td.toFixed(1)+'k';
+  document.getElementById('kv-g').textContent='$'+tg.toFixed(1)+'k';
+  document.getElementById('kv-st').textContent=avgSt.toFixed(1)+'%';
+  document.getElementById('kv-cr').textContent=data.filter(p=>p.status==='critico').length;
+  document.getElementById('kv-md').textContent=data.filter(p=>p.markdown).length;
+  document.getElementById('kv-oh').textContent='$'+data.reduce((s,p)=>s+p.oh,0).toFixed(1)+'k';
+  document.getElementById('kv-sa').textContent=data.filter(p=>p.status==='saudavel').length;
+}
+
+function updateCharts(data){
+  const M=['HAIGHT','CALA DE LA CRUZ','CALA X ANTHRO'];
+  const MC=['#378ADD','#D85A30','#639922'];
+
+  destroyChart('donut');
+  const stM=M.map(m=>{const it=data.filter(p=>p.marca===m);return it.length?+(it.reduce((s,p)=>s+p.st,0)/it.length).toFixed(1):0;});
+  charts['donut']=new Chart(document.getElementById('c-donut'),{type:'doughnut',data:{labels:['HAIGHT','CDC','CxA'],datasets:[{data:stM,backgroundColor:MC,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}}}});
+
+  destroyChart('gap');
+  const vM=M.map(m=>+data.filter(p=>p.marca===m).reduce((s,p)=>s+p.vendas,0).toFixed(1));
+  const dM=M.map(m=>+data.filter(p=>p.marca===m).reduce((s,p)=>s+p.demanda,0).toFixed(1));
+  charts['gap']=new Chart(document.getElementById('c-gap'),{type:'bar',data:{labels:['HAIGHT','CDC','CxA'],datasets:[{label:'Vendas',data:vM,backgroundColor:'#185FA5',borderRadius:4},{label:'Demanda',data:dM,backgroundColor:'#B5D4F4',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:v=>'$'+v+'k',font:{size:10}}}}}});
+
+  destroyChart('sku');
+  const sk=[...data].sort((a,b)=>b.st-a.st);
+  charts['sku']=new Chart(document.getElementById('c-sku'),{type:'bar',data:{labels:sk.map(p=>abbr(p.produto)),datasets:[{data:sk.map(p=>p.st),backgroundColor:sk.map(p=>bColor(p.marca)),borderRadius:3},{data:Array(sk.length).fill(60),type:'line',borderColor:'#E24B4A',borderWidth:1.5,borderDash:[5,3],pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9},autoSkip:false,maxRotation:42}},y:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+
+  destroyChart('demgap');
+  const top10=[...data].filter(p=>p.demand_gap>0).sort((a,b)=>b.demand_gap-a.demand_gap).slice(0,10);
+  charts['demgap']=new Chart(document.getElementById('c-demgap'),{type:'bar',indexAxis:'y',data:{labels:top10.map(p=>abbr(p.produto)),datasets:[{data:top10.map(p=>+p.demand_gap.toFixed(1)),backgroundColor:top10.map(p=>bColor(p.marca)),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{callback:v=>'$'+v+'k',font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+  destroyChart('status');
+  const sd=M.map(m=>{const it=data.filter(p=>p.marca===m);return{s:it.filter(p=>p.status==='saudavel').length,a:it.filter(p=>p.status==='atencao').length,c:it.filter(p=>p.status==='critico').length};});
+  charts['status']=new Chart(document.getElementById('c-status'),{type:'bar',data:{labels:['HAIGHT','CDC','CxA'],datasets:[{label:'Saudável',data:sd.map(x=>x.s),backgroundColor:'#639922',borderRadius:3},{label:'Atenção',data:sd.map(x=>x.a),backgroundColor:'#BA7517',borderRadius:3},{label:'Crítico',data:sd.map(x=>x.c),backgroundColor:'#E24B4A',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},stacked:true,ticks:{font:{size:11}}},y:{stacked:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{stepSize:1,font:{size:10}}}}}});
+}
+
+function updatePerf(data){
+  const sorted=[...data].sort((a,b)=>b[perfSortKey]-a[perfSortKey]);
+  document.getElementById('perf-body').innerHTML=sorted.map((p,i)=>{
+    const rk=i+1;
+    const rc=rk===1?'rk1':rk===2?'rk2':rk===3?'rk3':'rkn';
+    const stC=p.st>=60?'#639922':p.st>=25?'#BA7517':'#E24B4A';
+    const wD=p.wos<0?'<span style="color:#A32D2D;font-size:10px;">Dev.</span>':p.wos===0?'—':p.wos.toFixed(1)+'w';
+    const rC=p.ret>60?'var(--red)':p.ret>40?'var(--amber)':'var(--muted)';
+    const gC=p.demand_gap>100?'var(--red)':p.demand_gap>30?'var(--amber)':'var(--muted)';
+    const mdB=p.markdown?'<span class="pill pmd" style="font-size:9px;margin-left:3px;">MD</span>':'';
+    return '<tr>'
+      +'<td><span class="rank-badge '+rc+'">'+rk+'</span></td>'
+      +'<td style="font-size:12px;font-weight:500;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+p.produto+'">'+p.produto+mdB+'</td>'
+      +'<td><span class="btag '+bCls(p.marca)+'">'+bLabel(p.marca)+'</span></td>'
+      +'<td class="num"><b style="color:'+stC+';">'+p.st.toFixed(1)+'%</b></td>'
+      +'<td class="num" style="color:var(--muted);">'+p.st_net.toFixed(1)+'%</td>'
+      +'<td class="num" style="font-weight:500;">$'+p.vendas.toFixed(1)+'k</td>'
+      +'<td class="num" style="color:var(--muted);">$'+p.demanda.toFixed(1)+'k</td>'
+      +'<td class="num" style="color:'+gC+';">$'+p.demand_gap.toFixed(1)+'k</td>'
+      +'<td class="num" style="color:'+rC+';">'+p.ret.toFixed(1)+'%</td>'
+      +'<td class="num">'+wD+'</td>'
+      +'<td class="num">$'+p.oh.toFixed(1)+'k</td>'
+      +'<td><div style="width:56px;height:5px;background:#ede9e3;border-radius:3px;overflow:hidden;"><div style="width:'+Math.min(p.st,100)+'%;height:5px;border-radius:3px;background:'+stC+';"></div></div></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function updateAlerts(data){
+  const crit=data.filter(p=>p.status==='critico');
+  const mds=data.filter(p=>p.markdown);
+  const altoRet=data.filter(p=>p.ret>60).sort((a,b)=>b.ret-a.ret);
+  const top3=[...data].sort((a,b)=>b.pct_total-a.pct_total).slice(0,3);
+  const pill=(t,c)=>'<span class="pill '+c+'" style="font-size:9px;">'+t+'</span>';
+  const iw='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>';
+  const ib='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>';
+  const ir='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>';
+  const ic='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+  document.getElementById('alerts-grid').innerHTML=
+    '<div class="ac" style="border-color:var(--red-l);"><div class="ac-h" style="color:var(--red);">'+iw+'Críticos ('+crit.length+')</div><div class="ac-b">ST abaixo de 25% — ação imediata.</div><div class="ac-list">'+crit.slice(0,6).map(p=>pill(p.produto.split(' ').slice(0,3).join(' '),'pr')).join('')+(crit.length>6?pill('+'+(crit.length-6),'pr'):'')+'</div></div>'
+   +'<div class="ac" style="border-color:var(--amber-l);"><div class="ac-h" style="color:var(--amber);">'+ib+'Markdown ('+mds.length+')</div><div class="ac-b">ST&lt;25% e WOS&gt;8 — risco de encalhe.</div><div class="ac-list">'+mds.map(p=>pill(p.produto.split(' ').slice(0,3).join(' '),'pmd')).join('')+'</div></div>'
+   +'<div class="ac" style="border-color:var(--amber-l);"><div class="ac-h" style="color:var(--amber);">'+ir+'Alto retorno ('+altoRet.length+')</div><div class="ac-b">Return% acima de 60% — ST bruto mascarado.</div><div class="ac-list">'+altoRet.slice(0,5).map(p=>pill(p.produto.split(' ').slice(0,3).join(' ')+' '+p.ret+'%','pa')).join('')+'</div></div>'
+   +'<div class="ac" style="border-color:var(--blue);"><div class="ac-h" style="color:var(--blue);">'+ic+'Concentração</div><div class="ac-b">Top 3 = '+top3.reduce((s,p)=>s+p.pct_total,0).toFixed(1)+'% da receita. Risco de dependência.</div><div class="ac-list">'+top3.map(p=>pill(p.produto.split(' ').slice(0,3).join(' ')+' '+p.pct_total+'%','pg')).join('')+'</div></div>';
+}
+
+function updateTable(data){
+  document.getElementById('sc-count').textContent=data.length+' produto'+(data.length!==1?'s':'')+' exibidos';
+  const sorted=[...data].sort((a,b)=>b.vendas-a.vendas);
+  document.getElementById('sc-body').innerHTML=sorted.map((p,i)=>{
+    const stC=p.st>=60?'#639922':p.st>=25?'#BA7517':'#E24B4A';
+    const pC=p.status==='saudavel'?'pg':p.status==='atencao'?'pa':'pr';
+    const pL=p.status==='saudavel'?'Saudável':p.status==='atencao'?'Atenção':'Crítico';
+    const wD=p.wos<0?'<span style="color:#A32D2D;font-size:10px;">Dev.</span>':p.wos===0?'—':p.wos.toFixed(1)+'w';
+    const rC=p.ret>60?'#A32D2D':p.ret>40?'#BA7517':'var(--muted)';
+    const gC=p.demand_gap>100?'#A32D2D':p.demand_gap>30?'#BA7517':'var(--muted)';
+    const mdB=p.markdown?'<span class="pill pmd" style="font-size:9px;margin-left:3px;">MD</span>':'';
+    return '<tr>'
+      +'<td style="color:var(--muted);font-size:11px;">'+(i+1)+'</td>'
+      +'<td style="font-size:12px;font-weight:500;max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+p.produto+'">'+p.produto+mdB+'</td>'
+      +'<td><span class="btag '+bCls(p.marca)+'">'+bLabel(p.marca)+'</span></td>'
+      +'<td><div style="display:flex;align-items:center;gap:5px;"><div class="bar-bg"><div class="bar-fill" style="width:'+Math.min(p.st,100)+'%;background:'+stC+';"></div></div><span style="font-size:11px;font-weight:700;color:'+stC+';min-width:30px;">'+p.st.toFixed(1)+'%</span></div></td>'
+      +'<td style="text-align:right;font-size:11px;color:var(--muted);">'+p.st_net.toFixed(1)+'%</td>'
+      +'<td style="text-align:right;font-weight:500;">$'+p.vendas.toFixed(1)+'k</td>'
+      +'<td style="text-align:right;font-size:11px;color:'+gC+';">$'+p.demand_gap.toFixed(1)+'k</td>'
+      +'<td style="text-align:right;font-weight:600;">'+p.du.toLocaleString()+'</td>'
+      +'<td style="text-align:right;font-weight:600;">'+p.doh.toLocaleString()+'</td>'
+      +'<td style="text-align:right;font-size:11px;">$'+p.oh.toFixed(1)+'k</td>'
+      +'<td style="text-align:right;font-size:11px;">'+wD+'</td>'
+      +'<td style="text-align:right;font-size:11px;color:'+rC+';">'+p.ret.toFixed(1)+'%</td>'
+      +'<td style="text-align:right;font-size:11px;">'+p.pct_total.toFixed(1)+'%</td>'
+      +'<td><span class="pill '+pC+'">'+pL+'</span></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function render(){
+  const data=applyFilters(RAW);
+  updateKPIs(data);
+  updateCharts(data);
+  updatePerf(data);
+  updateAlerts(data);
+  updateTable(data);
+}
+
+document.querySelectorAll('[data-filter]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const g=btn.dataset.filter;
+    document.querySelectorAll('[data-filter="'+g+'"]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    filters[g]=btn.dataset.value;
+    render();
+  });
+});
+
+document.querySelectorAll('[data-sort]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('[data-sort]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    perfSortKey=btn.dataset.sort;
+    updatePerf(applyFilters(RAW));
+  });
+});
+
+render();
+</script>
+</body>
+</html>
+
+
+
